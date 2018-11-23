@@ -14,20 +14,30 @@
  * limitations under the License.
  */
 
-package test.kiko.com.dagger2.Tdi;
+package test.kiko.com.dagger2.di;
+
+import android.app.Application;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import test.kiko.com.dagger2.Login;
+import test.kiko.com.dagger2.User;
 
 @Module
 class AppModule {
 
     @Singleton
     @Provides
-    Login provideXiaoMingUser(String name) {
-        return new Login(name, "123456789");
+    Login provideXiaoMingUser(Application a) {
+        return new Login("小明", "123456789");
     }
+
+    @Singleton
+    @Provides
+    User provideUserData(Login login) {
+        return new User(login.getName(), login.getPassword());
+    }
+
 }

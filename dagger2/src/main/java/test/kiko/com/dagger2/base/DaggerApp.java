@@ -8,9 +8,9 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import test.kiko.com.dagger2.Tdi.AppInjector;
+import test.kiko.com.dagger2.di.AppInjector;
 
-public class DaggerApp extends Application implements HasActivityInjector{
+public class DaggerApp extends Application implements HasActivityInjector {
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 

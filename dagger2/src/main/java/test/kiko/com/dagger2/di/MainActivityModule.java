@@ -14,28 +14,16 @@
  * limitations under the License.
  */
 
-package test.kiko.com.dagger2.Tdi;
+package test.kiko.com.dagger2.di;
 
-import android.app.Application;
 
-import javax.inject.Singleton;
+import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
+import test.kiko.com.dagger2.MainActivity;
 
-import dagger.BindsInstance;
-import dagger.Component;
-import test.kiko.com.dagger2.base.DaggerApp;
+@Module
+public abstract class MainActivityModule {
 
-@Singleton
-@Component(modules = {
-        AppModule.class,
-})
-public interface AppComponent {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        Builder application(Application application);
-
-        AppComponent build();
-    }
-
-    void inject(DaggerApp githubApp);
+    @ContributesAndroidInjector(modules = MainFragmentModule.class)
+    abstract MainActivity contributeMainActivity();
 }

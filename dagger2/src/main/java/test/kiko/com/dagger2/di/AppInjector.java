@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package test.kiko.com.dagger2.Tdi;
+package test.kiko.com.dagger2.di;
 
 import android.app.Activity;
 import android.app.Application;
@@ -32,11 +32,13 @@ import test.kiko.com.dagger2.base.DaggerApp;
  * Helper class to automatically inject fragments if they implement {@link Injectable}.
  */
 public class AppInjector {
-    private AppInjector() {}
-    public static void init(DaggerApp githubApp) {
-        DaggerAppComponent.builder().application(githubApp)
-                .build().inject(githubApp);
-        githubApp
+    private AppInjector() {
+    }
+
+    public static void init(DaggerApp daggerApp) {
+        DaggerAppComponent.builder().application(daggerApp)
+                .build().inject(daggerApp);
+        daggerApp
                 .registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
                     @Override
                     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class AppInjector {
     }
 
     private static void handleActivity(Activity activity) {
-        if (activity instanceof HasSupportFragmentInjector) {
+        if (activity instanceof HasSupportFragmentInjector || activity instanceof Injectable) {
             AndroidInjection.inject(activity);
         }
         if (activity instanceof FragmentActivity) {

@@ -14,10 +14,31 @@
  * limitations under the License.
  */
 
-package test.kiko.com.dagger2.Tdi;
+package test.kiko.com.dagger2.di;
 
-/**
- * Marks an activity / fragment injectable.
- */
-public interface Injectable {
+import android.app.Application;
+
+import javax.inject.Singleton;
+
+import dagger.BindsInstance;
+import dagger.Component;
+import dagger.android.AndroidInjectionModule;
+import test.kiko.com.dagger2.base.DaggerApp;
+
+@Singleton
+@Component(modules = {
+        AndroidInjectionModule.class,
+        AppModule.class,
+        MainActivityModule.class
+})
+public interface AppComponent {
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        Builder application(Application application);
+
+        AppComponent build();
+    }
+
+    void inject(DaggerApp daggerApp);
 }
